@@ -4,8 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pytesseract = "*"
+ocrmypdf = "*"
+# explicit mention of reused dependencies of ocrmypdf
+pillow = "*"
+pikepdf = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.7"
+# >= 3.7 is fine
+# python_version = "3.7"
