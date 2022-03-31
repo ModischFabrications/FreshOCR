@@ -8,13 +8,14 @@ Requires Python >=3.7
 
 Windows: Use WSL, manual installation seems to be too cumbersome
 
-`sudo apt install -y ocrmypdf tesseract-ocr-deu`
-Feel free to add other languages as needed.
+0. `sudo apt-get update -y && sudo apt-get upgrade -y`
+1. `sudo apt install -y ocrmypdf tesseract-ocr-deu`
+   Feel free to add other languages as needed.
 
 Test with
 
-1. `tesseract -h`
-2. `ocrmypdf -h`
+2. `tesseract -h`
+3. `ocrmypdf -h`
 
 ## Python Dependencies
 
@@ -25,7 +26,10 @@ Install python project with
 
 # Execution
 
-Call this python code from the shell that ocrmypdf/tesseract was installed to. 
+Call this python code from the shell that ocrmypdf/tesseract was installed to.
+
+pipenv run ./main.py
+
 
 
 
