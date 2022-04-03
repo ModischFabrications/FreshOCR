@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-import platform
+import sys
+from pathlib import Path
 
-import PIL.Image
+from pytesseract import pytesseract
 
-from modules.image import pdf_to_img, normalize_size, crop_to_title, preprocess_for_ocr
-from modules.ocr import *
-
-# pipenv decided to forbid specification of min versions, so we need to check manually to prevent weird errors
-py_version = platform.python_version_tuple()
-if int(py_version[0]) < 3 or int(py_version[1]) < 6:
-    raise OSError("Python versions older than 3.6 are not supported")
+import config
+from modules.ocr import ocr_pdf, get_langs
+from modules.title_extraction import extract_title
 
 
 def main():
@@ -29,13 +26,9 @@ def main():
     print("Done.")
 
 
-def extract_title(f) -> str:
-    img = pdf_to_img(f) if (f.suffix == ".pdf") else PIL.Image.open(f)
-    crop = crop_to_title(normalize_size(img))
-    crop = preprocess_for_ocr(crop)
-    title = title_from_crop(crop)
-    return title
-
-
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except pytesseract.TesseractNotFoundError:
+        print("Error: You are missing Tesseract", file=sys.stderr)
+    raise SystemExit(1)
